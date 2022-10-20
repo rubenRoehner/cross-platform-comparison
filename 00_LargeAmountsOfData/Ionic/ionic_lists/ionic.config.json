@@ -1,0 +1,7 @@
+{
+  "name": "ionic_lists",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

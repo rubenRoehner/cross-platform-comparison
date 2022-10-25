@@ -1,8 +1,7 @@
 import { IonItem, IonLabel } from "@ionic/react";
+import { ListItemData } from "./SimpleListItem";
 
-export type ComplexListItemProps = { title: string, paragraph: string }
-
-const ComplexListItem: React.FC<ComplexListItemProps> = (props: ComplexListItemProps) => (
+const ComplexListItem: React.FC<ListItemData> = (props: ListItemData) => (
     <IonItem detail>
         <IonLabel text-wrap>
             <h2>{props.title}</h2>

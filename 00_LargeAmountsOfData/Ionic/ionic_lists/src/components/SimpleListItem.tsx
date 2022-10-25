@@ -1,8 +1,8 @@
 import { IonItem, IonLabel } from "@ionic/react";
 
-export type SimpleListItemProps = { title: string }
+export interface ListItemData { title: string, paragraph: string, index: number }
 
-const SimpleListItem: React.FC<SimpleListItemProps> = ({ title }: SimpleListItemProps) => (
+const SimpleListItem: React.FC<ListItemData> = ({ title }: ListItemData) => (
     <IonItem>
         <IonLabel>
             {title}

@@ -2,7 +2,7 @@ import { ListItem } from "@rneui/themed";
 
 export interface ListItemData { title: string, paragraph: string, index: number }
 
-const SimpleListItem = (itemData: ListItemData) => {
+const SimpleListItem = (itemData:   ) => {
     return (
         <ListItem bottomDivider>
             <ListItem.Title>

@@ -3,25 +3,22 @@ import React from "react";
 import { FlatList, SafeAreaView, StatusBar, Text } from "react-native";
 import ComplexListItem from "../components/ComplexListItem";
 import SimpleListItem, { ListItemData } from "../components/SimpleListItem";
+import mockData from "../data/MockData_25.json"
 
-const itemCount = 100;
 const showSimpleListItem = false
 
 export default class MainScreen extends React.Component {
 
     state = {
-        searchValue: ''
+        searchValue: "",
+        listItems: mockData
     }
 
     getListItems(searchValue: string) {
-        let items = []
-        for (let i = 0; i < itemCount; i++) {
-            items.push({ title: "Item no." + i, paragraph: "lorem ipsum dolor sit amet", index: i } as ListItemData)
-        }
-        return items.filter((itemData: ListItemData) => itemData.title.toLowerCase().includes(searchValue.toLowerCase()) || itemData.paragraph.toLowerCase().includes(searchValue.toLowerCase()))
+        return mockData.filter((itemData) => itemData.title.toLowerCase().includes(searchValue.toLowerCase()) || itemData.description.toLowerCase().includes(searchValue.toLowerCase()))
     }
 
-    renderItem(itemData: ListItemData) {
+    renderItem(itemData) {
         if (showSimpleListItem) {
             return SimpleListItem(itemData)
         } else {
@@ -34,7 +31,7 @@ export default class MainScreen extends React.Component {
     }
 
     render() {
-        const { searchValue } = this.state
+        const { searchValue, listItems } = this.state
         return (
             <SafeAreaView>
                 <SearchBar value={searchValue} onChangeText={this.updateSearch} lightTheme></SearchBar>

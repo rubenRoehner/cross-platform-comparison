@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(top: 8.0),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+                  crossAxisCount: 2, childAspectRatio: 2 / 3),
               delegate: SliverChildBuilderDelegate((context, index) {
                 return CustomCard(
                   title: "Product $index",
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
-                    height: 200,
+                    height: 300,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(top: 8.0),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+                  crossAxisCount: 2, childAspectRatio: 2 / 3),
               delegate: SliverChildBuilderDelegate((context, index) {
                 return CustomCard(
                   title: "Service $index",

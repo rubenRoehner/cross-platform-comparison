@@ -15,9 +15,9 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: AspectRatio(
-        aspectRatio: 1,
+    return AspectRatio(
+      aspectRatio: 2 / 3,
+      child: Card(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -30,6 +30,7 @@ class CustomCard extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
               Text(
                 title,
                 maxLines: 1,

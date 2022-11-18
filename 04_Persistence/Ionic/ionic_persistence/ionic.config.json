@@ -1,0 +1,7 @@
+{
+  "name": "ionic_persistence",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

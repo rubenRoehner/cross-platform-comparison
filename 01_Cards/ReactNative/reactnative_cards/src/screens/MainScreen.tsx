@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, VirtualizedList } from "react-native";
+import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View, VirtualizedList } from "react-native";
 import CustomCard, { CustomCardData } from "../components/CustomCard";
 import HorizontalScrollView, { HorizontalScrollViewData } from "../components/HorizontalScrollView";
 
@@ -56,24 +56,26 @@ const styles = StyleSheet.create({
     }
 })
 
+const WIDTH = Dimensions.get('screen').width
+
 export interface ListItemData { }
 
 interface SectionTitleItemData extends ListItemData {
-    sectionTitle: String
+    sectionTitle: string
 }
 
 export default class MainScreen extends React.Component {
 
-    renderItem(item: ListItemData) {
+    renderItem(item: ListItemData, index: number) {
         if (this.isCustomCardData(item)) {
             var customCardData = item as CustomCardData
-            return (<CustomCard title={customCardData.title} subtitle={customCardData.subtitle} label={customCardData.label} imgUrl={customCardData.imgUrl} />)
+            return (<View key={index} style={{ width: 0.5 * WIDTH }}><CustomCard title={customCardData.title} subtitle={customCardData.subtitle} label={customCardData.label} imgUrl={customCardData.imgUrl} /></View>)
         } else if (this.isHorizontalScrollViewData(item)) {
             var horizontalScrollViewData = item as HorizontalScrollViewData
-            return (<HorizontalScrollView items={horizontalScrollViewData.items} />)
+            return (<View key={index} style={{ width: WIDTH, height: 300 }}><HorizontalScrollView items={horizontalScrollViewData.items} /></View>)
         } else {
             var sectionTitleItemData = item as SectionTitleItemData
-            return (<Text style={{ width: "100%" }}>{sectionTitleItemData.sectionTitle}</Text>)
+            return (<View key={index} style={{ width: WIDTH }}><Text>{sectionTitleItemData.sectionTitle}</Text></View>)
         }
     }
 
@@ -88,11 +90,16 @@ export default class MainScreen extends React.Component {
     render() {
         return (
             <SafeAreaView>
-                <FlatList
-                    data={listItemData}
-                    renderItem={({ item }) => (this.renderItem(item))}
-                    contentContainerStyle={{ flexDirection: "row" }}
-                />
+                <ScrollView
+                    horizontal={false}
+                    contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}
+                >
+                    {
+                        listItemData.map((item, index) => {
+                            return this.renderItem(item, index)
+                        })
+                    }
+                </ScrollView>
             </SafeAreaView>
         )
     }

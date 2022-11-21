@@ -13,7 +13,6 @@ const HorizontalScrollView = (data: HorizontalScrollViewData) => {
             renderItem={({ item }) => (<CustomCard title={item.title} subtitle={item.subtitle} label={item.label} imgUrl={item.imgUrl} />)}
             horizontal
             nestedScrollEnabled
-            style={{ height: 300, width: "100%", backgroundColor: "red" }}
         />
     )
 }

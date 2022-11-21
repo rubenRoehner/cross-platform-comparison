@@ -8,10 +8,11 @@ export interface CustomCardData extends ListItemData { title: string, subtitle: 
 
 const cardStyles = StyleSheet.create({
     container: {
-        width: "50%", aspectRatio: 2 / 3, margin: 0
+        aspectRatio: 2 / 3, margin: 0, display: 'flex', flexDirection: "column", flexGrow: 1
     },
     image: {
-        flex: 1
+        flex: 1,
+        height: 300
     },
     title: {
         fontSize: 18

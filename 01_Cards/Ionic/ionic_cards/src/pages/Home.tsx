@@ -1,8 +1,11 @@
-import { IonContent, IonHeader, IonPage, IonSlide, IonSlides, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonicSlides, IonPage, IonSlide, IonSlides, IonTitle, IonToolbar } from '@ionic/react';
 import CustomCard, { CustomCardData } from '../components/CustomCard';
 import GridView from '../components/GridView';
 import './Home.css';
+
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode } from 'swiper';
+import 'swiper/css';
 
 const mockData: CustomCardData[] = [
   { title: "First Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../public/assets/images/ionic_logo.png" },
@@ -26,17 +29,18 @@ const Home: React.FC = () => {
         <p>Products</p>
         <GridView items={mockData} />
         <p>Gallery</p>
-        <div>
-          <Swiper style={{ height: 300 }}>
-            {
-              mockData.map((item, index) => (
-                <SwiperSlide>
-                  <CustomCard title={item.title} subtitle={item.subtitle} label={item.label} imgUrl={item.imgUrl} />
-                </SwiperSlide>
-              ))
-            }
-          </Swiper>
-        </div>
+        <Swiper modules={[IonicSlides]} freeMode={{
+          enabled: true,
+          sticky: false
+        }} slidesPerView={"auto"}>
+          {
+            mockData.map((item, _) => (
+              <SwiperSlide style={{ width: 200 }}>
+                <CustomCard title={item.title} subtitle={item.subtitle} label={item.label} imgUrl={item.imgUrl} />
+              </SwiperSlide>
+            ))
+          }
+        </Swiper>
         <p>Services</p>
         <GridView items={mockData} />
       </IonContent>

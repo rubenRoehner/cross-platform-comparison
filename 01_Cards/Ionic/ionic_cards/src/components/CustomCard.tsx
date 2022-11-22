@@ -1,16 +1,16 @@
-import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonImg } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonImg } from "@ionic/react";
 import CSS from "csstype"
 
 export interface CustomCardData { title: string, subtitle: string, label: string, imgUrl: string }
 
 const CustomCard: React.FC<CustomCardData> = ({ title, subtitle, label, imgUrl }) => (
     <IonCard style={cardStyle}>
-        <img src="assets/images/ionic_logo.png" style={cardImgStyle} />
-        <div style={cardContentStyle}>
-            <p>{title}</p>
-            <p style={subtitleStyle}>{subtitle}</p>
+        <IonImg src="assets/images/ionic_logo.png" style={cardImgStyle} />
+        <IonCardHeader style={cardContentStyle}>
+            <IonCardSubtitle style={subtitleStyle}>{subtitle}</IonCardSubtitle>
+            <IonCardTitle>{title}</IonCardTitle>
             <p>{label}</p>
-        </div>
+        </IonCardHeader>
     </IonCard >
 );
 
@@ -18,8 +18,7 @@ const cardStyle: CSS.Properties = {
     display: "flex",
     flexDirection: "column",
     aspectRatio: 2 / 3,
-    margin: 0,
-    maxHeight: "100%"
+    margin: "10px"
 }
 
 const cardContentStyle: CSS.Properties = {

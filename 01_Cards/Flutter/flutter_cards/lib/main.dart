@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 300,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
+                      itemCount: 10,
                       itemBuilder: (BuildContext context, int index) {
                         return CustomCard(
                           title: "Gallery item $index",
@@ -122,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: "50",
                   imageUrl: "assets/images/flutter_logo.png",
                 );
-              }, childCount: 12),
+              }, childCount: 13),
             ),
           ),
         ],

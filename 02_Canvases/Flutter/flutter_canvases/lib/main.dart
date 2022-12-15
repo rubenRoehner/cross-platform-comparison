@@ -30,16 +30,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double rotation = 0.0;
+  double progress = 0.0;
   late Timer timer;
 
   @override
   void initState() {
     super.initState();
     timer = Timer.periodic(
-        const Duration(microseconds: 10),
+        const Duration(milliseconds: 1),
         (Timer t) => setState(() {
-              print("new rotation: $rotation");
+              if (progress < 100) {
+                progress += 0.03;
+              } else {
+                progress = 0;
+              }
             }));
   }
 
@@ -50,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("Flutter canvases"),
         ),
         body: CustomPaint(
-          painter: CanvasPainter(rotation),
+          painter: CanvasPainter(progress),
           size: Size.infinite,
         ));
   }
@@ -58,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-
-    timer.cancel();
+    if (timer.isActive) {
+      timer.cancel();
+    }
   }
 }

@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class CanvasPainter extends CustomPainter {
-  final double rotation;
+  final double progress;
 
-  CanvasPainter(this.rotation);
+  CanvasPainter(this.progress);
+
+  double toRadians(double angle) => angle * pi / 180.0;
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.rotate(rotation);
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2,
-        Paint()..color = Colors.red);
-    canvas.drawRect(
-        const Rect.fromLTRB(10, 20, 50, 80), Paint()..color = Colors.green);
+    double width = size.width;
+    double height = size.height;
+
+    Paint paint = Paint()..color = Colors.blue;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(width / 2, height / 2), radius: 100),
+      toRadians(90 + progress * 1.8),
+      toRadians(-progress * 3.6),
+      false,
+      paint,
+    );
   }
 
   @override
   bool shouldRepaint(covariant CanvasPainter oldDelegate) {
-    return rotation != oldDelegate.rotation;
+    return oldDelegate.progress != progress;
   }
 }

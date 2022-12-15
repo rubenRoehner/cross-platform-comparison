@@ -7,10 +7,10 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Blank</IonTitle>
+          <IonTitle>Ionic Canvases</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen color={"tertiary"} scrollY={false}>
         <CustomPainter />
       </IonContent>
     </IonPage>

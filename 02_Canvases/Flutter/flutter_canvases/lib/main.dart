@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_canvases/canvas_painter.dart';
 
@@ -29,22 +27,19 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  double progress = 0.0;
-  late Timer timer;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(
-        const Duration(milliseconds: 1),
-        (Timer t) => setState(() {
-              if (progress < 100) {
-                progress += 0.03;
-              } else {
-                progress = 0;
-              }
-            }));
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animationController.addListener(() {
+      setState(() {});
+    });
+    _animationController.repeat();
   }
 
   @override
@@ -54,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("Flutter canvases"),
         ),
         body: CustomPaint(
-          painter: CanvasPainter(progress),
+          painter: CanvasPainter(_animationController.value),
           size: Size.infinite,
         ));
   }
@@ -62,8 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-    if (timer.isActive) {
-      timer.cancel();
-    }
+    _animationController.dispose();
   }
 }

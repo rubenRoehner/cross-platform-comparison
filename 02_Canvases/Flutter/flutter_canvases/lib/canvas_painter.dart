@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -16,12 +18,26 @@ class CanvasPainter extends CustomPainter {
     Paint paint = Paint()..color = Colors.blue;
 
     canvas.drawArc(
-      Rect.fromCircle(center: Offset(width / 2, height / 2), radius: 100),
-      toRadians(90 + progress * 1.8),
-      toRadians(-progress * 3.6),
+      Rect.fromCircle(center: Offset(width / 2, height / 2 - 20), radius: 100),
+      toRadians(90 + progress * 180),
+      toRadians(-progress * 360),
       false,
       paint,
     );
+
+    final textPainter = TextPainter(
+        text: const TextSpan(
+          text: "Loading...",
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.center);
+    textPainter.layout(minWidth: width);
+    textPainter.paint(canvas, Offset(0, height / 2 + 120));
   }
 
   @override

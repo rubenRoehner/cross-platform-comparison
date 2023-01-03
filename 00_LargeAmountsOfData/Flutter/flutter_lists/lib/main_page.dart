@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lists/ComplexListItem.dart';
-import 'package:flutter_lists/SimpleListItem.dart';
+import 'package:flutter_lists/components/complex_listitem.dart';
+import 'package:flutter_lists/components/simple_listitem.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

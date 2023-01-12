@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_io/data/models/user.dart';
 import 'package:http/http.dart' as http;
+import '../models/user.dart';
 
 const baseURL = "fakestoreapi.com";
 const userEndpoint = "/users";

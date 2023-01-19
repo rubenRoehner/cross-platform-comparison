@@ -1,7 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonHeader, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,20 +21,46 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import ProductsScreen from './pages/Products/ProductsScreen';
+import UsersScreen from './pages/Users/UsersScreen';
+import CartsScreen from './pages/Carts/CartsScreen';
+import { cart, list, people } from 'ionicons/icons';
+
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle>Ionic IO test</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route path="/products" component={ProductsScreen} exact={true} />
+            <Route path="/user" component={UsersScreen} exact={true} />
+            <Route path="/carts" component={CartsScreen} exact={true} />
+            <Route path="/" render={() => <Redirect to="/products" />} exact={true} />
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="products" href='/products'>
+              <IonIcon icon={list} aria-hidden="true" />
+              <IonLabel>Products</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="user" href='/user'>
+              <IonIcon icon={people} aria-hidden="true" />
+              <IonLabel>User</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="carts" href='/carts'>
+              <IonIcon icon={cart} aria-hidden="true" />
+              <IonLabel>Carts</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonContent>
   </IonApp>
 );
 

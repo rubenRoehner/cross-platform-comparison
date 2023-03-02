@@ -6,7 +6,7 @@ import 'package:flutter_lists/components/simple_listitem.dart';
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
-  final bool presentSimpleItem = true;
+  final bool presentSimpleItem = false;
   static const int itemCount = 1000;
 
   @override

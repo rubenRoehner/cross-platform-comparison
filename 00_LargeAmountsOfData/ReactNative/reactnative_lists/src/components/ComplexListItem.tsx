@@ -11,7 +11,7 @@ const ComplexListItem = (itemData: ListItemData) => {
                     {itemData.title}
                 </ListItem.Title>
                 <ListItemSubtitle>
-                    {itemData.paragraph}
+                    {itemData.description}
                 </ListItemSubtitle>
             </ListItemContent>
             <ListItem.Chevron />

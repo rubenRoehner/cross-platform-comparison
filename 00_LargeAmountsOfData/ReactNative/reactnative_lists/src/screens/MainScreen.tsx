@@ -1,24 +1,23 @@
 import { SearchBar } from "@rneui/themed";
 import React from "react";
-import { FlatList, SafeAreaView, StatusBar, Text } from "react-native";
+import { FlatList, Platform, SafeAreaView } from "react-native";
 import ComplexListItem from "../components/ComplexListItem";
 import SimpleListItem, { ListItemData } from "../components/SimpleListItem";
-import mockData from "../data/MockData_25.json"
+import mockData from "../data/MockData_1000.json"
 
 const showSimpleListItem = false
 
 export default class MainScreen extends React.Component {
 
     state = {
-        searchValue: "",
-        listItems: mockData
+        searchValue: ""
     }
 
     getListItems(searchValue: string) {
         return mockData.filter((itemData) => itemData.title.toLowerCase().includes(searchValue.toLowerCase()) || itemData.description.toLowerCase().includes(searchValue.toLowerCase()))
     }
 
-    renderItem(itemData) {
+    renderItem(itemData: ListItemData) {
         if (showSimpleListItem) {
             return SimpleListItem(itemData)
         } else {
@@ -31,15 +30,22 @@ export default class MainScreen extends React.Component {
     }
 
     render() {
-        const { searchValue, listItems } = this.state
+        const { searchValue } = this.state
+        let platform: "default" | "android" | "ios" | undefined = "default"
+        if (Platform.OS === "android") {
+            platform = "android"
+        }
+        if (Platform.OS === "ios") {
+            platform = "ios"
+        }
         return (
             <SafeAreaView>
-                <SearchBar value={searchValue} onChangeText={this.updateSearch} lightTheme></SearchBar>
+                <SearchBar value={searchValue} onChangeText={this.updateSearch} platform={platform} ></SearchBar>
                 <FlatList
                     data={this.getListItems(searchValue)}
-                    renderItem={({ item }) => this.renderItem(item)}
+                    renderItem={({ item, index }) => this.renderItem({ ...item, index })}
                 />
-            </SafeAreaView>
+            </SafeAreaView >
         );
     }
 }

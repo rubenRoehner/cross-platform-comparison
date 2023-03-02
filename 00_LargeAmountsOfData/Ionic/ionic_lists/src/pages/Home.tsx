@@ -3,7 +3,7 @@ import React from 'react';
 import ComplexListItem from '../components/ComplexListItem';
 import SimpleListItem from '../components/SimpleListItem';
 import './Home.css';
-import mockData from '../data/MockData_25.json'
+import mockData from '../data/MockData_1000.json'
 
 const showSimpleItems = false;
 

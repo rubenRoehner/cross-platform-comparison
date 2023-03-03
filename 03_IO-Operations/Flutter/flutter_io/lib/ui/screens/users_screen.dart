@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_io/data/models/user.dart';
 import 'package:flutter_io/data/services/user_service.dart';
-import 'package:flutter_io/screens/error_screen.dart';
-import 'package:flutter_io/screens/loading_screen.dart';
+import 'package:flutter_io/ui/screens/error_screen.dart';
+import 'package:flutter_io/ui/screens/loading_screen.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});

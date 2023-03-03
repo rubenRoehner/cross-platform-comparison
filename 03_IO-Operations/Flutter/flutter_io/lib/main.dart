@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_io/screens/carts_screen.dart';
-import 'package:flutter_io/screens/error_screen.dart';
-import 'package:flutter_io/screens/products_screen.dart';
-import 'package:flutter_io/screens/users_screen.dart';
+import 'package:flutter_io/ui/screens/carts_screen.dart';
+import 'package:flutter_io/ui/screens/error_screen.dart';
+import 'package:flutter_io/ui/screens/products_screen.dart';
+import 'package:flutter_io/ui/screens/users_screen.dart';
 
 void main() {
   runApp(const MyApp());

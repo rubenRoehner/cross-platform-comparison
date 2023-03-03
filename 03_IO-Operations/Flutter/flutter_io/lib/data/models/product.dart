@@ -7,7 +7,7 @@ part 'product.g.dart';
 class Product {
   final int id;
   final String title;
-  final double price;
+  final num price;
   final String description;
   final String image;
   final String category;

@@ -14,12 +14,33 @@ class ComplexListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(itemdata.title),
-      subtitle: Text(itemdata.subtitle),
-      trailing: Icon(trailingIcon),
+      title: Text(
+        itemdata.title,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            itemdata.subtitle.toUpperCase(),
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            itemdata.description,
+            style: Theme.of(context).textTheme.bodySmall,
+          )
+        ],
+      ),
+      trailing: Chip(
+        label: Text("${itemdata.price} €"),
+        backgroundColor: Colors.primaries[5],
+      ),
       onTap: () {
         onButtonClicked();
       },
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     );
   }
 }
@@ -27,6 +48,8 @@ class ComplexListItem extends StatelessWidget {
 class ListitemData {
   final String title;
   final String subtitle;
+  final String description;
+  final String price;
 
-  ListitemData(this.title, this.subtitle);
+  const ListitemData(this.title, this.description, this.price, this.subtitle);
 }

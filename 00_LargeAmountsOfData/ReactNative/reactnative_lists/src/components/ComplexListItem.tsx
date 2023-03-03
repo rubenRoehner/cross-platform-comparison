@@ -1,6 +1,7 @@
 import { ListItem } from "@rneui/base"
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle";
+import { Chip, Text } from "@rneui/themed";
 import { ListItemData } from "./SimpleListItem"
 
 const ComplexListItem = (itemData: ListItemData) => {
@@ -11,10 +12,15 @@ const ComplexListItem = (itemData: ListItemData) => {
                     {itemData.title}
                 </ListItem.Title>
                 <ListItemSubtitle>
-                    {itemData.description}
+                    {itemData.material.toUpperCase()}
                 </ListItemSubtitle>
+                <ListItemContent>
+                    <Text>
+                        {itemData.description}
+                    </Text>
+                </ListItemContent>
             </ListItemContent>
-            <ListItem.Chevron />
+            <Chip> <Text>{itemData.price} € </Text></Chip>
         </ListItem>
     );
 }

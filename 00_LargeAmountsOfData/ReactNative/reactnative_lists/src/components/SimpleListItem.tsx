@@ -1,6 +1,6 @@
 import { ListItem } from "@rneui/themed";
 
-export interface ListItemData { title: string, description: string, index: number }
+export interface ListItemData { title: string, description: string, price: string, material: string, index: number }
 
 const SimpleListItem = (itemData: ListItemData) => {
     return (

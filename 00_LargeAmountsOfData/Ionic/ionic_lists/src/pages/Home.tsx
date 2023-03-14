@@ -1,12 +1,8 @@
 import { IonContent, IonHeader, IonList, IonPage, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
-import ComplexListItem from '../components/ComplexListItem';
-import SimpleListItem from '../components/SimpleListItem';
+import ListItem from '../components/ListItem';
 import './Home.css';
 import mockData from '../data/MockData_1000.json'
-
-const showSimpleItems = false;
-
 
 export default class Home extends React.Component {
   state = {
@@ -37,11 +33,7 @@ export default class Home extends React.Component {
           <IonSearchbar value={searchValue} onIonChange={(event) => { this.updateSearch(event.target.value) }}></IonSearchbar>
           <IonList>
             {this.getItems(searchValue).map(item => {
-              if (showSimpleItems) {
-                return <SimpleListItem title={item.title} />
-              } else {
-                return <ComplexListItem title={item.title} description={item.description} price={item.price} material={item.material} />
-              }
+              return <ListItem title={item.title} description={item.description} price={item.price} material={item.material} />
             })}
           </IonList>
         </IonContent>

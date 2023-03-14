@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lists/components/complex_listitem.dart';
-import 'package:flutter_lists/components/simple_listitem.dart';
+import 'package:flutter_lists/components/listitem.dart';
 import 'package:flutter_lists/data/mock_data.dart';
 
 class MainPage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter test largeAmountof Data"),
+        title: const Text("Flutter test list"),
       ),
       backgroundColor: CupertinoColors.systemBackground,
       body: Padding(
@@ -52,25 +51,21 @@ class _MainPageState extends State<MainPage> {
               child: ListView.separated(
                 itemCount: listitems.length,
                 itemBuilder: (context, index) {
-                  if (widget.presentSimpleItem) {
-                    return SimpleListItem(title: listitems[index].title);
-                  } else {
-                    return ComplexListItem(
-                        itemdata: listitems[index],
-                        trailingIcon: Icons.chevron_right,
-                        onButtonClicked: () {
-                          showDialog(
-                            context: context,
-                            builder: ((context) {
-                              return AlertDialog(
-                                title: const Text("Click event"),
-                                content: Text(
-                                    "Clicked on item with the number of $index"),
-                              );
-                            }),
-                          );
-                        });
-                  }
+                  return ListItem(
+                      itemdata: listitems[index],
+                      trailingIcon: Icons.chevron_right,
+                      onButtonClicked: () {
+                        showDialog(
+                          context: context,
+                          builder: ((context) {
+                            return AlertDialog(
+                              title: const Text("Click event"),
+                              content: Text(
+                                  "Clicked on item with the number of $index"),
+                            );
+                          }),
+                        );
+                      });
                 },
                 separatorBuilder: (context, index) {
                   return const Divider();

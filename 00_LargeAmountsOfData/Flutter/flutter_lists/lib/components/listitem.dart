@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ComplexListItem extends StatelessWidget {
-  const ComplexListItem(
+class ListItem extends StatelessWidget {
+  const ListItem(
       {super.key,
       required this.itemdata,
       required this.trailingIcon,

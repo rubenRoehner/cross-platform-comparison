@@ -2,9 +2,10 @@ import { ListItem } from "@rneui/base"
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle";
 import { Chip, Text } from "@rneui/themed";
-import { ListItemData } from "./SimpleListItem"
 
-const ComplexListItem = (itemData: ListItemData) => {
+export interface ListItemData { title: string, description: string, price: string, material: string, index: number }
+
+const ProductListItem = (itemData: ListItemData) => {
     return (
         <ListItem bottomDivider>
             <ListItemContent>
@@ -25,4 +26,4 @@ const ComplexListItem = (itemData: ListItemData) => {
     );
 }
 
-export default ComplexListItem
+export default ProductListItem

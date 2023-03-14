@@ -1,4 +1,4 @@
-import '../components/complex_listitem.dart';
+import '../components/listitem.dart';
 
 List<ListitemData> getMockData(int size) {
   if (size >= 1000) {

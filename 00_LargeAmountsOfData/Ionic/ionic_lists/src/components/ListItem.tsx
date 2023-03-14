@@ -1,8 +1,8 @@
 import { IonChip, IonItem, IonLabel } from "@ionic/react";
 
-export interface ComplexListItemData { title: string, description: string, price: string, material: string }
+export interface ListItemData { title: string, description: string, price: string, material: string }
 
-const ComplexListItem: React.FC<ComplexListItemData> = (itemData) => (
+const ListItem: React.FC<ListItemData> = (itemData) => (
     <IonItem>
         <IonLabel text-wrap>
             <h1>{itemData.title}</h1>
@@ -13,4 +13,4 @@ const ComplexListItem: React.FC<ComplexListItemData> = (itemData) => (
     </IonItem>
 );
 
-export default ComplexListItem;
+export default ListItem;

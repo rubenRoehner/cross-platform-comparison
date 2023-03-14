@@ -1,11 +1,8 @@
 import { SearchBar } from "@rneui/themed";
 import React from "react";
 import { FlatList, Platform, SafeAreaView } from "react-native";
-import ComplexListItem from "../components/ComplexListItem";
-import SimpleListItem, { ListItemData } from "../components/SimpleListItem";
+import ComplexListItem, { ListItemData } from "../components/ListItem";
 import mockData from "../data/MockData_1000.json"
-
-const showSimpleListItem = false
 
 export default class MainScreen extends React.Component {
 
@@ -18,11 +15,7 @@ export default class MainScreen extends React.Component {
     }
 
     renderItem(itemData: ListItemData) {
-        if (showSimpleListItem) {
-            return SimpleListItem(itemData)
-        } else {
-            return ComplexListItem(itemData)
-        }
+        return ComplexListItem(itemData)
     }
 
     updateSearch = (searchValue: string) => {
@@ -40,7 +33,7 @@ export default class MainScreen extends React.Component {
         }
         return (
             <SafeAreaView>
-                <SearchBar value={searchValue} onChangeText={this.updateSearch} platform={platform} ></SearchBar>
+                <SearchBar value={searchValue} onChangeText={this.updateSearch} platform={platform} />
                 <FlatList
                     data={this.getListItems(searchValue)}
                     renderItem={({ item, index }) => this.renderItem({ ...item, index })}

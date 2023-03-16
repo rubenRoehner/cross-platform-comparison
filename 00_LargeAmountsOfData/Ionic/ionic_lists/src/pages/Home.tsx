@@ -32,8 +32,8 @@ export default class Home extends React.Component {
         <IonContent>
           <IonSearchbar value={searchValue} onIonChange={(event) => { this.updateSearch(event.target.value) }}></IonSearchbar>
           <IonList>
-            {this.getItems(searchValue).map(item => {
-              return <ListItem title={item.title} description={item.description} price={item.price} material={item.material} />
+            {this.getItems(searchValue).map((item, index) => {
+              return <ListItem title={item.title + index} description={item.description} price={item.price} material={item.material} />
             })}
           </IonList>
         </IonContent>

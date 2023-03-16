@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Dimensions, StatusBar, View } from "react-native";
+import { Animated, Dimensions, Easing, StatusBar, View } from "react-native";
 import Canvas, { CanvasRenderingContext2D } from "react-native-canvas";
 
 const { width, height } = Dimensions.get('window');
@@ -8,10 +8,12 @@ const CustomPainter: React.FC = () => {
     const [canvasReference, setCanvas] = useState<Canvas | null>(null)
     const [canvasWidth, setCanvasWidth] = useState(0)
     var [canvasHeight, setCanvasHeight] = useState(0)
-    const previousTimeRef = useRef<number>()
-    const animationRef = useRef<number>()
 
-    var progress = 10
+    const progress = useRef(new Animated.Value(0)).current;
+
+    progress.addListener((value) => {
+        animateProgressIndicator(value.value)
+    })
 
     function clearCanvas(canvas: Canvas) {
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
@@ -21,14 +23,11 @@ const CustomPainter: React.FC = () => {
         return angle * Math.PI / 180
     }
 
-    function animateProgressIndicator(time: number) {
+    function animateProgressIndicator(animProgress: number) {
         if (canvasReference) {
             const context = canvasReference.getContext('2d');
             if (context) {
-                let deltaTime = 0
-                if (previousTimeRef.current != undefined) {
-                    deltaTime = time - previousTimeRef.current;
-                }
+                console.log("draw: " + animProgress)
                 clearCanvas(canvasReference)
 
                 const width = canvasReference.width
@@ -37,18 +36,11 @@ const CustomPainter: React.FC = () => {
                 context.fillStyle = "#f1f1f1"
                 context.fillRect(0, 0, width, height)
 
-                drawAnimatedCircle(context, progress, width / 2, height / 2 - 50, 100, "blue")
+                drawAnimatedCircle(context, animProgress, width / 2, height / 2 - 50, 100, "blue")
 
                 context.textAlign = "center"
                 context.font = "normal normal bold 20px sans-serif"
                 context.fillText("Loading...", width / 2, height / 2 + 90)
-
-                progress += (time / 50000000)
-                if (progress >= 100) {
-                    progress = 0
-                }
-                previousTimeRef.current = time;
-                animationRef.current = requestAnimationFrame(animateProgressIndicator)
             }
         }
     }
@@ -65,11 +57,23 @@ const CustomPainter: React.FC = () => {
     useEffect(() => {
         setCanvasWidth(width)
         let statusbarHeight = StatusBar.currentHeight ?? 0
-        let appBarHeight = 20
         setCanvasHeight(height - statusbarHeight)
         if (canvasReference) {
             canvasReference.width = width
             canvasReference.height = height
+        }
+
+        Animated.loop(
+            Animated.timing(progress, {
+                toValue: 100,
+                duration: 5000,
+                useNativeDriver: true,
+                easing: Easing.linear
+            })
+        ).start()
+
+        return () => {
+            progress.removeAllListeners()
         }
     }, [])
 
@@ -78,11 +82,6 @@ const CustomPainter: React.FC = () => {
             canvasReference.width = width
             canvasReference.height = height
         }
-        if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current)
-        }
-        animateProgressIndicator(0)
-        animationRef.current = requestAnimationFrame(animateProgressIndicator)
     }, [canvasReference])
 
     return <View style={{ width: "100%", height: "100%" }}><Canvas style={{ width: canvasWidth, height: canvasHeight }} ref={(canvas: Canvas) => (setCanvas(canvas))} /></View>

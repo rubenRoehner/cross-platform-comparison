@@ -3,6 +3,7 @@ import React from 'react';
 import ListItem from '../components/ListItem';
 import './Home.css';
 import mockData from '../data/MockData_1000.json'
+import { Virtuoso } from 'react-virtuoso'
 
 export default class Home extends React.Component {
   state = {
@@ -22,6 +23,7 @@ export default class Home extends React.Component {
 
   render(): React.ReactNode {
     const { searchValue } = this.state
+    const items = this.getItems(searchValue)
     return (
       <IonPage>
         <IonHeader>
@@ -31,11 +33,16 @@ export default class Home extends React.Component {
         </IonHeader>
         <IonContent>
           <IonSearchbar value={searchValue} onIonChange={(event) => { this.updateSearch(event.target.value) }}></IonSearchbar>
-          <IonList>
-            {this.getItems(searchValue).map((item, index) => {
-              return <ListItem title={item.title + index} description={item.description} price={item.price} material={item.material} />
-            })}
-          </IonList>
+          <IonContent>
+            <Virtuoso
+              style={{ height: '100%' }}
+              totalCount={items.length}
+              itemContent={(index) => {
+                const item = items[index]
+                return <ListItem title={item.title + index} description={item.description} price={item.price} material={item.material} />
+              }}
+            />
+          </IonContent>
         </IonContent>
       </IonPage>
     );

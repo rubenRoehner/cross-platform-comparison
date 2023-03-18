@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react"
 import ErrorScreen from "./ErrorScreen"
 import LoadingScreen from "./LoadingScreen"
-import { Card, ListItem } from "@rneui/themed"
-import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { Card } from "@rneui/themed"
 import { FlatList, StyleSheet, Text, View } from "react-native"
-import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
-import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
 import { fetchAllUser } from "../data/services/UserService"
 import { User } from "../data/models/User"
 

@@ -1,17 +1,67 @@
 import { useEffect, useState } from "react"
 import ErrorScreen from "./ErrorScreen"
 import LoadingScreen from "./LoadingScreen"
-import { Card, Chip, Image, ListItem } from "@rneui/themed"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { FlatList, StyleSheet, Text, View } from "react-native"
+import { Card, Chip, FAB, Icon, Image } from "@rneui/themed"
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native"
 import { Product } from "../data/models/Product"
-import { fetchAllProducts } from "../data/services/ProductService"
-import { CardTitle } from "@rneui/base/dist/Card/Card.Title"
+import { addNewProduct, deleteProduct, fetchAllProducts } from "../data/services/ProductService"
+import CreatProductDialog from "../components/CreateProductDialog"
+import Snackbar from "react-native-snackbar"
 
 const ProductsScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [hasError, setHasError] = useState(false)
     const [products, setProducts] = useState<Product[]>([])
+    const [showCreateDialog, setCreatDialogVisible] = useState(false)
+
+    const toggleCreateDialog = () => {
+        setCreatDialogVisible(!showCreateDialog)
+    }
+
+    const uploadNewProduct = (product: Product) => {
+        toggleCreateDialog()
+        addNewProduct(product).then((result) => {
+            if (result == null) {
+                Snackbar.show({
+                    text: "Failed to add product: " + product.title,
+                    duration: Snackbar.LENGTH_LONG,
+                })
+            } else {
+                Snackbar.show({
+                    text: "Successfully added product: " + product.title,
+                    duration: Snackbar.LENGTH_LONG,
+                })
+            }
+        }, (reason) => {
+            Snackbar.show({
+                text: "Failed to add product: " + product.title,
+                duration: Snackbar.LENGTH_LONG,
+            })
+            console.error("Failed to add product: " + reason)
+        })
+    }
+
+    const onDeleteProduct = (product: Product) => {
+        deleteProduct(product).then((result) => {
+            if (result == null) {
+                Snackbar.show({
+                    text: "Failed to delete product: " + product.title,
+                    duration: Snackbar.LENGTH_LONG,
+                })
+            } else {
+                Snackbar.show({
+                    text: "Successfully deleted product: " + product.title,
+                    duration: Snackbar.LENGTH_LONG,
+                })
+            }
+        }, (reason) => {
+            Snackbar.show({
+                text: "Failed to add product: " + product.title,
+                duration: Snackbar.LENGTH_LONG,
+            })
+            console.error("Failed to delete product: " + reason)
+        })
+    }
 
     useEffect(() => {
         setIsLoading(true)
@@ -30,27 +80,32 @@ const ProductsScreen: React.FC = () => {
     if (isLoading) return <LoadingScreen />
 
     return (
-        <FlatList
-            data={products}
-            renderItem={({ item }) => ProductListItem({ product: item })}
-        />
+        <>
+            <FlatList
+                data={products}
+                renderItem={({ item }) => ProductListItem({ product: item, onDelete: () => { onDeleteProduct(item) } })} />
+            <FAB style={styles.fabStyle} color="dodgerblue" onPress={toggleCreateDialog}><Icon name="add" color="white" /></FAB>
+            <CreatProductDialog isVisible={showCreateDialog} dismissDialog={toggleCreateDialog} onCreateProduct={uploadNewProduct} />
+        </>
     )
 }
 
-const ProductListItem = (props: { product: Product }) => {
+const ProductListItem = (props: { product: Product, onDelete(): void }) => {
     return (
-        <Card key={props.product.id} containerStyle={styles.cardStyle}>
-            <Image source={{ uri: props.product.image }} style={styles.productImageStyle} resizeMode="contain" />
-            <View style={{ height: 20 }} />
-            <Text style={styles.titleStyle}>{props.product.title}</Text>
-            <View style={{ height: 8 }} />
-            <Text style={styles.subtitleStyle}>{props.product.description}</Text>
-            <View style={{ height: 20 }} />
-            <View style={styles.bottomSection}>
-                <Text style={styles.categoryLabelStyle}>{props.product.category}</Text>
-                <Chip><Text>{props.product.price}€</Text></Chip>
-            </View>
-        </Card>
+        <Pressable onLongPress={props.onDelete}>
+            <Card key={props.product.id} containerStyle={styles.cardStyle}>
+                <Image source={{ uri: props.product.image }} style={styles.productImageStyle} resizeMode="contain" />
+                <View style={{ height: 20 }} />
+                <Text style={styles.titleStyle}>{props.product.title}</Text>
+                <View style={{ height: 8 }} />
+                <Text style={styles.subtitleStyle}>{props.product.description}</Text>
+                <View style={{ height: 20 }} />
+                <View style={styles.bottomSection}>
+                    <Text style={styles.categoryLabelStyle}>{props.product.category}</Text>
+                    <Chip color="dodgerblue"><Text>{props.product.price}€</Text></Chip>
+                </View>
+            </Card>
+        </Pressable>
     )
 }
 const styles = StyleSheet.create({
@@ -89,6 +144,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.20,
         shadowRadius: 1.41,
         elevation: 2,
+    },
+    fabStyle: {
+        position: 'absolute',
+        bottom: 25,
+        right: 25,
     }
 });
 

@@ -8,6 +8,7 @@ export async function fetchAllCarts(): Promise<Cart[] | null> {
         .then(response => response.json())
         .then(json => {
             var isValid = true
+            console.debug(json)
             json.map((value: any) => {
                 isValid = isCart(value)
             })

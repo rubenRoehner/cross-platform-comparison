@@ -40,8 +40,9 @@ const CartsScreen: React.FC = () => {
 }
 
 const cartListItem = (cart: Cart) => {
+    const key = 0.5 * (cart.id + cart.userId) * (cart.id + cart.userId + 1) + cart.userId
     return (
-        <ListItem key={cart.id}>
+        <ListItem key={key}>
             <ListItemContent>
                 <ListItemTitle>{cart.date}</ListItemTitle>
                 <ListItemSubtitle>{cart.products.length} Products</ListItemSubtitle>

@@ -2,12 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_io/ui/screens/error_screen.dart';
 import 'package:flutter_io/ui/screens/loading_screen.dart';
-import 'package:flutter_io/ui/widgets/confirmation_dialog.dart';
 import 'package:flutter_io/ui/widgets/create_product_dialog.dart';
-import 'package:flutter_io/ui/widgets/error_dialog.dart';
 import '../../data/models/product.dart';
 import '../../data/services/product_service.dart';
-import '../widgets/edit_product_dialog.dart';
 import '../widgets/loading_dialog.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -42,7 +39,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 itemBuilder: ((context, index) {
                   var product = snapshot.data![index];
                   return _productItem(product, () {
-                    _editProduct(product, context);
+                    _deleteProduct(context, product);
                   });
                 }),
               ),
@@ -57,62 +54,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
         } else {
           return const LoadingScreen();
         }
-      },
-    );
-  }
-
-  void _editProduct(Product product, BuildContext buildContext) {
-    _presentEditModal(
-      buildContext: buildContext,
-      onDeletePressed: () {
-        _deleteProduct(buildContext, product);
-      },
-      onUpdatePressed: () {
-        Navigator.of(buildContext).pop();
-        showEditProductDialog(
-          context: buildContext,
-          onButtonPressed: (updatedProduct) {
-            _updateProduct(buildContext, updatedProduct);
-          },
-          product: product,
-        );
-      },
-    );
-  }
-
-  void _presentEditModal(
-      {required BuildContext buildContext,
-      required void Function() onDeletePressed,
-      required void Function() onUpdatePressed}) {
-    showModalBottomSheet(
-      context: buildContext,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    onUpdatePressed();
-                    Navigator.of(buildContext).pop();
-                  },
-                  child: const Text("udpate")),
-              TextButton(
-                onPressed: () {
-                  onDeletePressed();
-                  Navigator.of(buildContext).pop();
-                },
-                child: const Text(
-                  "delete",
-                  style: TextStyle(color: Colors.red),
-                ),
-              )
-            ],
-          ),
-        );
       },
     );
   }
@@ -174,92 +115,42 @@ class _ProductsScreenState extends State<ProductsScreen> {
         onButtonPressed: (product) {
           showLoadingDialog(buildContext);
 
-          var wrongProduct =
-              Product(22, "title", 0, "description", "image", "category");
-
-          addProduct(wrongProduct).then((value) {
+          addProduct(product).then((value) {
             Navigator.of(buildContext).pop();
-            showConfirmationDialog(
-              context: buildContext,
-              title: "Added Product",
-              content: value.title,
-              buttonText: "Okay",
-              onButtonPressed: () {
-                Navigator.of(buildContext).pop();
-              },
-            );
+            _showSnackbar("Successfully added product ${product.title}",
+                Icons.info_outline);
           }, onError: (value) {
             Navigator.of(buildContext).pop();
-            showErrorDialog(
-              context: buildContext,
-              title: "Error",
-              content: "Could not add Product with ID ${product.id}. $value",
-              buttonText: "Okay",
-              onButtonPressed: () {
-                Navigator.of(buildContext).pop();
-              },
-            );
+            _showSnackbar("Error: failed to add product ${product.title}",
+                Icons.error_outline);
           });
         });
+  }
+
+  void _showSnackbar(String text, IconData leadingIcon) {
+    var snackBar = SnackBar(
+      content: Row(
+        children: [
+          Icon(leadingIcon),
+          Text(text),
+        ],
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _deleteProduct(BuildContext buildContext, Product product) {
     showLoadingDialog(buildContext);
 
-    // var wrongProduct = Product(22, "title", 0, "description", "image", "category");
-
     deleteProduct(product).then((value) {
       Navigator.of(buildContext).pop();
-      showConfirmationDialog(
-        context: buildContext,
-        title: "Deleted Product",
-        content: value.title,
-        buttonText: "Okay",
-        onButtonPressed: () {
-          Navigator.of(buildContext).pop();
-        },
-      );
+      _showSnackbar(
+          "Successfully deleted product ${product.title}", Icons.info_outline);
     }, onError: (value) {
       Navigator.of(buildContext).pop();
-      showErrorDialog(
-        context: buildContext,
-        title: "Error",
-        content: "Could not delete Product with ID ${product.id}.",
-        buttonText: "Okay",
-        onButtonPressed: () {
-          Navigator.of(buildContext).pop();
-        },
-      );
-    });
-  }
-
-  void _updateProduct(BuildContext buildContext, Product product) {
-    showLoadingDialog(buildContext);
-
-    // var wrongProduct = Product(22, "title", 0, "description", "image", "category");
-
-    updateProduct(product).then((value) {
-      Navigator.of(buildContext).pop();
-      showConfirmationDialog(
-        context: buildContext,
-        title: "Updated Product",
-        content: value.title,
-        buttonText: "Okay",
-        onButtonPressed: () {
-          Navigator.of(buildContext).pop();
-        },
-      );
-    }, onError: (value) {
-      Navigator.of(buildContext).pop();
-      showErrorDialog(
-        context: buildContext,
-        title: "Error",
-        content: "Could not update Product with ID ${product.id}.",
-        buttonText: "Okay",
-        onButtonPressed: () {
-          Navigator.of(buildContext).pop();
-        },
-      );
+      _showSnackbar("Error: failed to delete product ${product.title}",
+          Icons.error_outline);
     });
   }
 }

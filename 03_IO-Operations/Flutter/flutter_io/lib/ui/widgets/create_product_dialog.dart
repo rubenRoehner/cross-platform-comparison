@@ -17,8 +17,6 @@ void showCreateProductDialog(
       TextEditingController priceTextEditingController =
           TextEditingController(text: product?.description ?? "");
 
-      print("object");
-      print("dsagd");
       return AlertDialog(
         title: const Text("Create a new Product"),
         content: SingleChildScrollView(

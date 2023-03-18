@@ -54,23 +54,6 @@ Future<Product> addProduct(Product product) async {
   }
 }
 
-Future<Product> updateProduct(Product product) async {
-  final response = await http.put(
-      Uri.http(baseURL, "$productsEndpoint/${product.id}"),
-      body: product.toJson());
-  if (response.statusCode == 200 && response.body.isNotEmpty) {
-    try {
-      return Product.fromJson(jsonDecode(response.body));
-    } catch (error) {
-      return Future.error(
-          "Failed to update product with id ${product.id}. \n ${error.toString()}");
-    }
-  } else {
-    return Future.error(
-        "Failed to update product with id ${product.id}. \n status-code: ${response.statusCode}");
-  }
-}
-
 Future<Product> deleteProduct(Product product) async {
   final response =
       await http.delete(Uri.http(baseURL, "$productsEndpoint/${product.id}"));

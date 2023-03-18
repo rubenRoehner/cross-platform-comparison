@@ -1,4 +1,4 @@
-import { isCart, Cart, isCartEntry } from "../models/Cart";
+import { isCart, Cart } from "../models/Cart";
 
 const baseURL = "https://fakestoreapi.com";
 const cartsEndpoint = "/carts";

@@ -1,9 +1,5 @@
 import 'dart:convert';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'user.g.dart';
-
-@JsonSerializable()
 class User {
   final int id;
   final String email;
@@ -16,9 +12,29 @@ class User {
   User(this.id, this.email, this.username, this.password, this.name,
       this.address, this.phone);
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        json['id'] as int,
+        json['email'] as String,
+        json['username'] as String,
+        json['password'] as String,
+        json['name'] == null
+            ? null
+            : Name.fromJson(json['name'] as Map<String, dynamic>),
+        json['address'] == null
+            ? null
+            : Address.fromJson(json['address'] as Map<String, dynamic>),
+        json['phone'] as String,
+      );
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'email': email,
+        'username': username,
+        'password': password,
+        'name': name,
+        'address': address,
+        'phone': phone,
+      };
 
   @override
   String toString() {
@@ -26,16 +42,21 @@ class User {
   }
 }
 
-@JsonSerializable()
 class Name {
   final String firstname;
   final String lastname;
 
   Name(this.firstname, this.lastname);
 
-  factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
+  factory Name.fromJson(Map<String, dynamic> json) => Name(
+        json['firstname'] as String,
+        json['lastname'] as String,
+      );
 
-  Map<String, dynamic> toJson() => _$NameToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'firstname': firstname,
+        'lastname': lastname,
+      };
 
   @override
   String toString() {
@@ -43,7 +64,6 @@ class Name {
   }
 }
 
-@JsonSerializable()
 class Address {
   final String city;
   final String street;
@@ -53,10 +73,21 @@ class Address {
 
   Address(this.city, this.street, this.number, this.zipcode, this.geolocation);
 
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
+        json['city'] as String,
+        json['street'] as String,
+        json['number'] as int,
+        json['zipcode'] as String,
+        GeoLocation.fromJson(json['geolocation'] as Map<String, dynamic>),
+      );
 
-  Map<String, dynamic> toJson() => _$AddressToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'city': city,
+        'street': street,
+        'number': number,
+        'zipcode': zipcode,
+        'geolocation': geolocation,
+      };
 
   @override
   String toString() {
@@ -64,17 +95,21 @@ class Address {
   }
 }
 
-@JsonSerializable()
 class GeoLocation {
   final String lat;
   final String long;
 
   GeoLocation(this.lat, this.long);
 
-  factory GeoLocation.fromJson(Map<String, dynamic> json) =>
-      _$GeoLocationFromJson(json);
+  factory GeoLocation.fromJson(Map<String, dynamic> json) => GeoLocation(
+        json['lat'] as String,
+        json['long'] as String,
+      );
 
-  Map<String, dynamic> toJson() => _$GeoLocationToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'lat': lat,
+        'long': long,
+      };
 
   @override
   String toString() {

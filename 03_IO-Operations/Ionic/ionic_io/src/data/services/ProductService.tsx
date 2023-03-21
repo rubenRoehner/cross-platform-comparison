@@ -3,7 +3,6 @@ import { isProduct, Product } from "../models/Product";
 
 const baseURL = "https://fakestoreapi.com";
 const productsEndpoint = "/products";
-const categoriesEndpoint = "/products/categories";
 
 export async function fetchAllProducts(): Promise<Product[] | null> {
     const options = {
@@ -21,29 +20,26 @@ export async function fetchAllProducts(): Promise<Product[] | null> {
     }
 }
 
-export async function fetchAllCategories(): Promise<string[] | null> {
+export async function addNewProduct(product: Product): Promise<number | null> {
     const options = {
-        url: baseURL + categoriesEndpoint
+        url: baseURL + productsEndpoint,
+        body: JSON.stringify(product)
     }
-    const response = await CapacitorHttp.get(options)
-    if (Array.isArray(response.data)) {
-        return response.data.map((value) => value.toString())
+    const response = await CapacitorHttp.post(options)
+    if ("id" in response.data) {
+        return response.data.id
     } else {
         return null
     }
 }
 
-export async function fetchOneProduct(): Promise<Product | null> {
-    return fetchProductById(1)
-}
-
-export async function fetchProductById(id: number): Promise<Product | null> {
+export async function deleteProduct(product: Product): Promise<number | null> {
     const options = {
-        url: baseURL + productsEndpoint + "/" + id
+        url: baseURL + productsEndpoint + "/" + product.id
     }
-    const response = await CapacitorHttp.get(options)
-    if (isProduct(response.data)) {
-        return response.data
+    const response = await CapacitorHttp.delete(options)
+    if ("id" in response.data) {
+        return response.data.id
     } else {
         return null
     }

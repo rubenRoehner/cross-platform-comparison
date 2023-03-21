@@ -1,9 +1,9 @@
 import { IonCard, IonCardContent, IonContent, IonList, IonPage } from "@ionic/react"
 import { useEffect, useState } from "react"
-import ErrorScreen from "../../components/ErrorScreen"
-import LoadingScreen from "../../components/LoadingScreen"
-import { User } from "../../data/models/User"
-import { fetchAllUser } from "../../data/services/UserService"
+import ErrorScreen from "./ErrorScreen"
+import LoadingScreen from "./LoadingScreen"
+import { User } from "../data/models/User"
+import { fetchAllUser } from "../data/services/UserService"
 
 const UsersScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false)

@@ -1,9 +1,9 @@
 import { IonContent, IonItem, IonLabel, IonList, IonPage } from "@ionic/react"
 import { useEffect, useState } from "react"
-import ErrorScreen from "../../components/ErrorScreen"
-import LoadingScreen from "../../components/LoadingScreen"
-import { Cart } from "../../data/models/Cart"
-import { fetchAllCarts } from "../../data/services/CartService"
+import ErrorScreen from "./ErrorScreen"
+import LoadingScreen from "./LoadingScreen"
+import { Cart } from "../data/models/Cart"
+import { fetchAllCarts } from "../data/services/CartService"
 
 const CartsScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false)

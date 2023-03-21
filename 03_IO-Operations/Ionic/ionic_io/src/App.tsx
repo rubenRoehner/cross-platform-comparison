@@ -21,9 +21,9 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import ProductsScreen from './pages/Products/ProductsScreen';
-import UsersScreen from './pages/Users/UsersScreen';
-import CartsScreen from './pages/Carts/CartsScreen';
+import ProductsScreen from './pages/ProductsScreen';
+import UsersScreen from './pages/UsersScreen';
+import CartsScreen from './pages/CartsScreen';
 import { cart, list, people } from 'ionicons/icons';
 
 setupIonicReact();

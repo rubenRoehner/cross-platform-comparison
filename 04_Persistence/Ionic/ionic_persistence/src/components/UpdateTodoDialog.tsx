@@ -1,16 +1,23 @@
 import { IonModal, IonInput, IonItem, IonPopover, IonDatetime, IonRow, IonButton } from "@ionic/react";
 import { parseISO } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Todo } from "../data/models/Todo"
 
 import './CreateTodoDialog.css';
 
-const UpdateTodoDialog = (props: { isOpen: boolean, setIsOpen(value: boolean): void, todo: Todo | null, onUpdate(todo: Todo): void }) => {
+const UpdateTodoDialog = (props: { onDismiss(): void, todo: Todo | undefined, onUpdate(todo: Todo): void, onDelete(todo: Todo): void }) => {
 
     const [title, setTitle] = useState(props.todo?.title ?? "");
-    const [due, setDue] = useState(props.todo?.due ?? new Date(Date.now()));
+    const [due, setDue] = useState(props.todo?.dueDate ?? new Date(Date.now()));
 
     const [presentDatePicker, setPresentDatePicker] = useState(false);
+
+    useEffect(() => {
+        if (props.todo?.dueDate != undefined) {
+            setTitle(props.todo.title)
+            setDue(props.todo.dueDate)
+        }
+    }, [props.todo])
 
     const onChangeTitle = (value: string | number | null | undefined) => {
         if (typeof value === "string") {
@@ -25,19 +32,26 @@ const UpdateTodoDialog = (props: { isOpen: boolean, setIsOpen(value: boolean): v
     }
 
     const onUpdate = () => {
-        props.setIsOpen(false)
+        props.onDismiss()
         var todo: Todo = {
-            id: props.todo?.id ?? null,
+            id: props.todo?.id ?? 0,
             title: title,
-            due: due,
-            done: props.todo?.done ?? false
+            dueDate: due,
+            completed: props.todo?.completed ?? false
         }
         props.onUpdate(todo)
     }
 
+    const onDelete = () => {
+        if (props.todo != undefined) {
+            props.onDelete(props.todo)
+        }
+        onDismiss()
+    }
+
     const onDismiss = () => {
         resetValues()
-        props.setIsOpen(false)
+        props.onDismiss()
     }
 
     const resetValues = () => {
@@ -47,8 +61,8 @@ const UpdateTodoDialog = (props: { isOpen: boolean, setIsOpen(value: boolean): v
 
     return (
         <>
-            <IonModal id="modalDialog" isOpen={props.isOpen} onDidDismiss={() => { onDismiss() }}>
-                <div style={{ margin: 10 }}>
+            <IonModal id="modalDialog" isOpen={props.todo != undefined} onDidDismiss={() => { onDismiss() }}>
+                <div style={{ margin: 16 }}>
                     <IonInput placeholder="title" value={title} onIonChange={(element) => { onChangeTitle(element.target.value) }} />
                     <IonItem>
                         <IonInput value={due.toLocaleDateString()} onClick={() => { setPresentDatePicker(true) }} readonly />
@@ -57,8 +71,8 @@ const UpdateTodoDialog = (props: { isOpen: boolean, setIsOpen(value: boolean): v
                         </IonPopover>
                     </IonItem>
                     <IonRow>
-                        <IonButton onClick={() => { onDismiss() }}>cancel</IonButton>
-                        <IonButton onClick={onUpdate}>create</IonButton>
+                        <IonButton onClick={onDelete}>delete</IonButton>
+                        <IonButton onClick={onUpdate}>update</IonButton>
                     </IonRow>
                 </div>
             </IonModal>

@@ -1,10 +1,10 @@
-import { IonContent } from "@ionic/react"
+import { IonPage } from "@ionic/react"
 
 const SettingsScreen: React.FC = () => {
     return (
-        <IonContent>
+        <IonPage>
             <h1>Settings</h1>
-        </IonContent>
+        </IonPage>
     )
 }
 

@@ -34,6 +34,7 @@ interface existingConnInterface {
   existConn: boolean,
   setExistConn: React.Dispatch<React.SetStateAction<boolean>>,
 }
+
 // Singleton SQLite Hook
 export let sqlite: SQLiteHook;
 // Existing Connections Store

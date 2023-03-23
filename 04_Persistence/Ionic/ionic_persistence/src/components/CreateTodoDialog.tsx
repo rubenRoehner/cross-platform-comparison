@@ -29,8 +29,8 @@ const CreateTodoDialog = (props: { isOpen: boolean, setIsOpen(value: boolean): v
         var todo: Todo = {
             id: 0,
             title: title,
-            due: due,
-            done: false
+            dueDate: due,
+            completed: false
         }
         props.onCreate(todo)
     }

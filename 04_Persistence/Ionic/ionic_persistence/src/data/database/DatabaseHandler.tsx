@@ -1,27 +1,34 @@
-// SQLITE IMPORTS
-import { SQLiteConnection, SQLiteDBConnection } from "@capacitor-community/sqlite";
+import { SQLiteDBConnection } from "@capacitor-community/sqlite";
 
-import { CapacitorSQLite } from "@capacitor-community/sqlite"
 import { sqlite } from "../../App";
-import { isTodo, Todo } from "../models/Todo";
+import { Todo } from "../models/Todo";
 
 const dbName = "sqlite-todos"
 
 export const initdb = async () => {
     try {
-        var database = await sqlite.createConnection(
-            dbName,
-            false,
-            "no-encryption",
-            1,
-            false
-        );
+        const ret = await sqlite.checkConnectionsConsistency();
+        const isConn = (await sqlite.isConnection(dbName, false)).result;
+        var db: SQLiteDBConnection
+        if (ret.result && isConn) {
+            db = await sqlite.retrieveConnection(dbName, false);
+        } else {
+            db = await sqlite.createConnection(dbName, false, "no-encryption", 1, false);
+        }
 
-        database.execute("CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, due TEXT NOT NULL, done INTEGER NOT NULL");
+        await db.open();
+        let query = `
+        CREATE TABLE IF NOT EXISTS todos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            title TEXT NOT NULL, 
+            dueDate TEXT NOT NULL, 
+            completed INTEGER NOT NULL);
+        `
 
-        return database;
+        const res: any = await db.execute(query);
+        return db;
     } catch (e) {
-        window.alert(e);
+        console.log(e);
         return null;
     }
 };
@@ -31,7 +38,13 @@ export const getAllTodos = async (database: SQLiteDBConnection) => {
 
     return database.query("SELECT * from todos;").then((results) => {
         return results.values?.map((value) => {
-            return value as Todo
+            var todo: Todo = {
+                id: value.id as number,
+                title: value.title as string,
+                dueDate: new Date(value.dueDate as string),
+                completed: (value.completed as number) == 1
+            }
+            return todo
         });
     })
 };
@@ -44,14 +57,15 @@ export const deleteTodo = async (database: SQLiteDBConnection, todoId: number) =
 
 export const updateTodo = async (database: SQLiteDBConnection, todo: Todo) => {
     return await database.query(
-        "UPDATE todos SET title=?, due=?, done=? WHERE id = ?;",
-        [todo.title, todo.due.toISOString(), todo.done ? 1 : 0, todo.id + ""]
+        "UPDATE todos SET title=?, dueDate=?, completed=? WHERE id = ?;",
+        [todo.title, todo.dueDate.toISOString(), todo.completed ? 1 : 0, todo.id + ""]
     );
 };
 
 export const createTodo = async (database: SQLiteDBConnection, todo: Todo) => {
-    return await database.run(
-        "INSERT INTO todos (title,due,done) VALUES(?,?,?)",
-        [todo.title, todo.due.toISOString(), todo.done ? 1 : 0]
+    var res = await database.run(
+        "INSERT INTO todos (title,dueDate,completed) VALUES(?,?,?)",
+        [todo.title, todo.dueDate.toISOString(), todo.completed ? 1 : 0]
     );
+    return res
 };

@@ -13,7 +13,7 @@ const UpdateTodoDialog = (props: { onDismiss(): void, todo: Todo | undefined, on
     const [presentDatePicker, setPresentDatePicker] = useState(false);
 
     useEffect(() => {
-        if (props.todo?.dueDate != undefined) {
+        if (props.todo?.dueDate !== undefined) {
             setTitle(props.todo.title)
             setDue(props.todo.dueDate)
         }
@@ -43,7 +43,7 @@ const UpdateTodoDialog = (props: { onDismiss(): void, todo: Todo | undefined, on
     }
 
     const onDelete = () => {
-        if (props.todo != undefined) {
+        if (props.todo !== undefined) {
             props.onDelete(props.todo)
         }
         onDismiss()
@@ -61,7 +61,7 @@ const UpdateTodoDialog = (props: { onDismiss(): void, todo: Todo | undefined, on
 
     return (
         <>
-            <IonModal id="modalDialog" isOpen={props.todo != undefined} onDidDismiss={() => { onDismiss() }}>
+            <IonModal id="modalDialog" isOpen={props.todo !== undefined} onDidDismiss={() => { onDismiss() }}>
                 <div style={{ margin: 16 }}>
                     <IonInput placeholder="title" value={title} onIonChange={(element) => { onChangeTitle(element.target.value) }} />
                     <IonItem>

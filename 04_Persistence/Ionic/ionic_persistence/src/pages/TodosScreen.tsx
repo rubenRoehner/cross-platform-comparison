@@ -1,33 +1,21 @@
-import { useIonToast, IonPage, IonContent, IonList, IonFab, IonFabButton, IonIcon, IonModal, IonInput, IonRow, IonButton, IonItem, IonPopover, IonDatetime } from "@ionic/react";
+import { IonPage, IonContent, IonList, IonFab, IonFabButton, IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { SQLiteDBConnection } from "react-sqlite-hook";
 import CreateTodoDialog from "../components/CreateTodoDialog";
 import TodoListItem from "../components/TodoListItem";
 import UpdateTodoDialog from "../components/UpdateTodoDialog";
 import { createTodo, deleteTodo, getAllTodos, initdb, updateTodo } from "../data/database/DatabaseHandler";
 import { Todo } from "../data/models/Todo";
-import ErrorScreen from "./ErrorScreen";
 import LoadingScreen from "./LoadingScreen";
 
 const TodosScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false)
-    const [hasError, setHasError] = useState(false)
     const [todos, setTodos] = useState<Todo[]>([])
     const [presentCreateDialog, setPresentCreateDialog] = useState(false)
     const [selectedTodo, selectTodo] = useState<Todo | undefined>()
 
     const [sqliteConnection, setSqliteConnection] = useState<SQLiteDBConnection | undefined>()
-
-    const [present] = useIonToast()
-
-    const presentToast = (message: string) => {
-        present({
-            message: message,
-            duration: 1500,
-            position: 'bottom'
-        });
-    };
 
     useEffect(() => {
         initdb().then((connection) => {
@@ -42,7 +30,7 @@ const TodosScreen: React.FC = () => {
     const updateTodos = (connection: SQLiteDBConnection) => {
         // setIsLoading(true)
         getAllTodos(connection).then((value) => {
-            if (value != undefined) {
+            if (value !== undefined) {
                 setTodos(value)
             }
             setIsLoading(false)
@@ -85,8 +73,6 @@ const TodosScreen: React.FC = () => {
         }
 
     }
-
-    if (hasError) return <ErrorScreen />
 
     if (isLoading) return <LoadingScreen />
 

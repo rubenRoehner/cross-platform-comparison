@@ -25,7 +25,7 @@ export const initdb = async () => {
             completed INTEGER NOT NULL);
         `
 
-        const res: any = await db.execute(query);
+        await db.execute(query);
         return db;
     } catch (e) {
         console.log(e);
@@ -42,7 +42,7 @@ export const getAllTodos = async (database: SQLiteDBConnection) => {
                 id: value.id as number,
                 title: value.title as string,
                 dueDate: new Date(value.dueDate as string),
-                completed: (value.completed as number) == 1
+                completed: (value.completed as number) === 1
             }
             return todo
         });

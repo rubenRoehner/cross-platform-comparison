@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_persistence/data/db/database_helper.dart';
 import 'package:flutter_persistence/ui/widgets/todo_item.dart';
 import 'package:flutter_persistence/ui/widgets/update_todo_dialog.dart';
-import 'package:intl/intl.dart';
 import '../../data/models/todo.dart';
 import '../widgets/create_todo_dialog.dart';
 import '../widgets/loading_dialog.dart';
@@ -23,7 +22,6 @@ class _TodosScreenState extends State<TodosScreen> {
   @override
   void initState() {
     super.initState();
-    print("init");
     todos = DatabaseHelper.singleton.todos();
   }
 

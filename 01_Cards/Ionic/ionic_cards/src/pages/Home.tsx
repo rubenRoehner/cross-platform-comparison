@@ -1,10 +1,9 @@
-import { IonContent, IonHeader, IonicSlides, IonPage, IonSlide, IonSlides, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonicSlides, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import CustomCard, { CustomCardData } from '../components/CustomCard';
 import GridView from '../components/GridView';
 import './Home.css';
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { FreeMode } from 'swiper';
 import 'swiper/css';
 
 const mockData: CustomCardData[] = [

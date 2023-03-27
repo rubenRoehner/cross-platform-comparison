@@ -1,17 +1,7 @@
 import React from "react";
-import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View, VirtualizedList } from "react-native";
+import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View, VirtualizedList } from "react-native";
 import CustomCard, { CustomCardData } from "../components/CustomCard";
 import HorizontalScrollView, { HorizontalScrollViewData } from "../components/HorizontalScrollView";
-
-const mockData: CustomCardData[] = [
-    { title: "First Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../public/assets/images/ionic_logo.png" },
-    { title: "Second Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-    { title: "Third Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-    { title: "Fourth Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-    { title: "Fifth Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-    { title: "Sixth Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-    { title: "Seventh Item", subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas corrupti natus nam minus. Explicabo totam impedit et est blanditiis nam harum modi doloribus sequi animi ad alias ex, sunt maxime!", label: "50", imgUrl: "../../assets/img/ionic_logo.png" },
-];
 
 const listItemData: ListItemData[] = [
     { sectionTitle: "Products" },

@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonImg } from "@ionic/react";
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonImg } from "@ionic/react";
 import CSS from "csstype"
 
 export interface CustomCardData { title: string, subtitle: string, label: string, imgUrl: string }

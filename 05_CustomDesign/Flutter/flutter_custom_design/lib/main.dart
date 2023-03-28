@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,105 +12,138 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Custom Design',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: Container(
+        padding: const EdgeInsets.all(24),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _getStyledButton(),
+            _getStyledImage(),
+            _getStyledTextInput()
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _getStyledButton() {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        textStyle: const MaterialStatePropertyAll(
+          TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            backgroundColor: Colors.transparent,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
+      ),
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 56, minWidth: 180),
+        decoration: BoxDecoration(
+          border: Border.all(color: const Color(0xFF4286f4), width: 2),
+          borderRadius: BorderRadius.circular(8),
+          gradient: LinearGradient(
+            colors: List.of([const Color(0xFF373B44), const Color(0xFF4286f4)]),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [Text("Styled Button")],
+        ),
+      ),
+    );
+  }
+
+  Widget _getStyledImage() {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFFAFAFA),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xffb3b3b3), width: 2),
+        boxShadow: List.of([
+          BoxShadow(
+            color: Colors.black.withAlpha(127),
+          )
+        ]),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: const ColorFiltered(
+        colorFilter: ColorFilter.mode(Color(0xAB000000), BlendMode.overlay),
+        child: Image(
+          image: AssetImage('assets/RWU_Logo.png'),
+          width: 300,
+          height: 300,
+        ),
+      ),
+    );
+  }
+
+  Widget _getStyledTextInput() {
+    return TextFormField(
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xFFB3B3B3), width: 2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xFF4286f4), width: 2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xFFff3a30), width: 2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          hintText: "Placeholder",
+          hintStyle: const TextStyle(
+            fontSize: 16,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w300,
+            color: Color(0xFFB3B3B3),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+      autovalidateMode: AutovalidateMode.always,
+      validator: (value) {
+        return EmailValidator.validate(value!) ? null : "Error: invalid input";
+      },
+      style: const TextStyle(
+        fontSize: 16,
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w500,
+        color: Color(0xFF383838),
+      ),
     );
   }
 }

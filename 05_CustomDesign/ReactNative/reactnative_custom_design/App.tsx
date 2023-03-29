@@ -1,120 +1,109 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import React, { useState } from 'react';
+import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const screenWidth = Dimensions.get('window').width;
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [isTextfieldFocused, setTextFieldFocused] = useState(false)
+  const [textfieldHasError, setTextfieldHasError] = useState(false)
+  const [placeholderVisible, setPlaceholderVisible] = useState(false)
+
+  const getBorderColor = () => {
+    if (textfieldHasError) {
+      return "#ff3a30"
+    } else if (isTextfieldFocused) {
+      return "#4286f4"
+    } else {
+      return "#B3B3B3"
+    }
+  }
+
+  const isValidEmail = (value: string) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return !reg.test(value)
+  }
+
+  const styles = StyleSheet.create({
+    container: {
+      padding: 24,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      height: "100%"
+    },
+
+    styledImageContainer: {
+      borderWidth: 2,
+      borderColor: "#B3B3B3",
+      borderRadius: 8,
+
+      backgroundColor: "#F1F1F1",
+
+      padding: 8
+    },
+    styledImage: {
+      width: 300,
+      height: 300
+    },
+
+    styledButton: {
+      minWidth: 180,
+      minHeight: 56,
+
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      borderRadius: 8,
+      borderColor: "#4286f4",
+      borderWidth: 2,
+      elevation: 4
+    },
+    styledButtonText: {
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontSize: 18,
+      color: "white"
+    },
+
+    styledTextfield: {
+      width: "100%",
+      borderWidth: 2,
+      borderColor: getBorderColor(),
+      borderRadius: 6,
+
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+
+      fontSize: 16,
+      fontFamily: "Montserrat",
+      fontWeight: placeholderVisible ? "300" : "500",
+      color: "#383838"
+    },
+    errorMessage: {
+      color: "#ff3a30"
+    }
+  });
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <LinearGradient style={styles.styledButton} colors={["#373B44", "#4286f4"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+        <Text style={styles.styledButtonText}>Styled Button</Text>
+      </LinearGradient>
+      <View style={styles.styledImageContainer} >
+        <Image style={styles.styledImage} source={require("./assets/images/RWU_Logo.png")} resizeMode="contain" blurRadius={2} />
+      </View>
+      <View style={{ width: screenWidth - 48 }}>
+        <TextInput style={styles.styledTextfield} placeholder="Placeholder" onFocus={() => setTextFieldFocused(true)} onBlur={() => setTextFieldFocused(false)} onChangeText={(text) => { setPlaceholderVisible(text.length == 0); setTextfieldHasError(isValidEmail(text)); }} />
+        {textfieldHasError && <Text style={{ color: "#ff3a30" }}>Error: Invalid email</Text>}
+      </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

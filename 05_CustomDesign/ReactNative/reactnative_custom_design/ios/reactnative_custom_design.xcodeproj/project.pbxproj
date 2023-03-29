@@ -12,7 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		464951DBE12E4810BC76C998 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4AFAA204119C490EBA5C3BC5 /* Montserrat-Light.ttf */; };
+		471E693643D7414082271C5F /* RWU_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EBE0BECC3F4F4D8ABE3309 /* RWU_Logo.png */; };
 		7699B88040F8A987B510C191 /* libPods-reactnative_custom_design-reactnative_custom_designTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactnative_custom_design-reactnative_custom_designTests.a */; };
+		7BD3168BF9984A19917A5F0E /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 814EAA928C10469B930BF200 /* Montserrat-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -38,9 +41,12 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = reactnative_custom_design/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-reactnative_custom_design-reactnative_custom_designTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactnative_custom_design-reactnative_custom_designTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-reactnative_custom_design.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_custom_design.debug.xcconfig"; path = "Target Support Files/Pods-reactnative_custom_design/Pods-reactnative_custom_design.debug.xcconfig"; sourceTree = "<group>"; };
+		4AFAA204119C490EBA5C3BC5 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-reactnative_custom_design.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_custom_design.release.xcconfig"; path = "Target Support Files/Pods-reactnative_custom_design/Pods-reactnative_custom_design.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-reactnative_custom_design-reactnative_custom_designTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_custom_design-reactnative_custom_designTests.debug.xcconfig"; path = "Target Support Files/Pods-reactnative_custom_design-reactnative_custom_designTests/Pods-reactnative_custom_design-reactnative_custom_designTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-reactnative_custom_design.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reactnative_custom_design.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68EBE0BECC3F4F4D8ABE3309 /* RWU_Logo.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RWU_Logo.png; path = ../assets/images/RWU_Logo.png; sourceTree = "<group>"; };
+		814EAA928C10469B930BF200 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = reactnative_custom_design/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-reactnative_custom_design-reactnative_custom_designTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_custom_design-reactnative_custom_designTests.release.xcconfig"; path = "Target Support Files/Pods-reactnative_custom_design-reactnative_custom_designTests/Pods-reactnative_custom_design-reactnative_custom_designTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -83,6 +89,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		07B5BD7E4AAD444F95F64CD8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4AFAA204119C490EBA5C3BC5 /* Montserrat-Light.ttf */,
+				814EAA928C10469B930BF200 /* Montserrat-Medium.ttf */,
+				68EBE0BECC3F4F4D8ABE3309 /* RWU_Logo.png */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* reactnative_custom_design */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +139,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				07B5BD7E4AAD444F95F64CD8 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -244,6 +262,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				464951DBE12E4810BC76C998 /* Montserrat-Light.ttf in Resources */,
+				7BD3168BF9984A19917A5F0E /* Montserrat-Medium.ttf in Resources */,
+				471E693643D7414082271C5F /* RWU_Logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,23 +1,17 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import { IonPage } from '@ionic/react';
+import './Home.css'
 
 const Home: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
-      </IonContent>
+      <div className="contentStyle">
+        <button className="styledButton">Styled Button</button>
+        <img src="assets/images/RWU_Logo.png" className="styledImage" />
+        <div>
+          <input className="styledTextfield" placeholder="Placeholder" type="email" required></input>
+          <span>Error: invalid input</span>
+        </div>
+      </div>
     </IonPage>
   );
 };

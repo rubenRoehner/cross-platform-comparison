@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -99,9 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ]),
       ),
       padding: const EdgeInsets.all(8),
-      child: const ColorFiltered(
-        colorFilter: ColorFilter.mode(Color(0xAB000000), BlendMode.overlay),
-        child: Image(
+      child: ImageFiltered(
+        imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+        child: const Image(
           image: AssetImage('assets/RWU_Logo.png'),
           width: 300,
           height: 300,

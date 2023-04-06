@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter test list"),
+        title: const Text("Flutter: list"),
       ),
       backgroundColor: CupertinoColors.systemBackground,
       body: Padding(

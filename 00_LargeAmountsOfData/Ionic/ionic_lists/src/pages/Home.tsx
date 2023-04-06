@@ -28,7 +28,7 @@ export default class Home extends React.Component {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Ionic test larger amounts of data</IonTitle>
+            <IonTitle>Ionic: lists</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>
@@ -39,7 +39,7 @@ export default class Home extends React.Component {
               totalCount={items.length}
               itemContent={(index) => {
                 const item = items[index]
-                return <ListItem title={item.title + index} description={item.description} price={item.price} material={item.material} />
+                return <ListItem title={item.title} description={item.description} price={item.price} material={item.material} />
               }}
             />
           </IonContent>

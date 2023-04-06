@@ -7,7 +7,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Ionic Canvases</IonTitle>
+          <IonTitle>Ionic: Canvas</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen color={"tertiary"} scrollY={false}>

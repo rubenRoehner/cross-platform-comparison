@@ -32,7 +32,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonHeader>
       <IonToolbar>
-        <IonTitle>Ionic IO test</IonTitle>
+        <IonTitle>Ionic: REST</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonContent>

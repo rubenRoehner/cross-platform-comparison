@@ -12,8 +12,8 @@
   "dependencies": {
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
-    "react": "18.1.0",
-    "react-native": "0.70.3",
+    "react": "18.2.0",
+    "react-native": "0.71.6",
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {

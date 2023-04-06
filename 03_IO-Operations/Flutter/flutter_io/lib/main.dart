@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Flutter IO-Operationen"),
+          title: const Text("Flutter: REST API"),
         ),
         body: SafeArea(child: _selectedScreen(_selectedIndex)),
         bottomNavigationBar: BottomNavigationBar(
